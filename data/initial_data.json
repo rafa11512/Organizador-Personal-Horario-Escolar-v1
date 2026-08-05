@@ -1,0 +1,161 @@
+{
+  "term": "Semestre de Prueba",
+  "subjects": [
+    {
+      "id": "sub-test-1",
+      "code": "MAT-101",
+      "name": "Matematicas Basicas",
+      "color": "#3b82f6",
+      "credits": 5,
+      "hoursPerWeek": 4,
+      "groups": [
+        {
+          "id": "grp-mat101-a",
+          "groupCode": "A",
+          "classroom": "Aula 101",
+          "professor": "JUAN PEREZ",
+          "professorRating": 4,
+          "professorDifficulty": "Media",
+          "tags": [
+            "Obligatoria"
+          ],
+          "review": "",
+          "schedule": [
+            {
+              "day": "Lun",
+              "start": "08:00",
+              "end": "10:00"
+            },
+            {
+              "day": "Mie",
+              "start": "08:00",
+              "end": "10:00"
+            }
+          ]
+        },
+        {
+          "id": "grp-mat101-b",
+          "groupCode": "B",
+          "classroom": "Aula 102",
+          "professor": "MARIA GOMEZ",
+          "professorRating": 5,
+          "professorDifficulty": "Baja",
+          "tags": [
+            "Obligatoria"
+          ],
+          "review": "",
+          "schedule": [
+            {
+              "day": "Mar",
+              "start": "10:00",
+              "end": "12:00"
+            },
+            {
+              "day": "Jue",
+              "start": "10:00",
+              "end": "12:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sub-test-2",
+      "code": "PROG-102",
+      "name": "Introduccion a la Programacion",
+      "color": "#10b981",
+      "credits": 6,
+      "hoursPerWeek": 5,
+      "groups": [
+        {
+          "id": "grp-prog102-a",
+          "groupCode": "A",
+          "classroom": "Lab Computo 1",
+          "professor": "CARLOS LOPEZ",
+          "professorRating": 4.5,
+          "professorDifficulty": "Alta",
+          "tags": [
+            "Laboratorio"
+          ],
+          "review": "",
+          "schedule": [
+            {
+              "day": "Lun",
+              "start": "10:00",
+              "end": "12:00"
+            },
+            {
+              "day": "Mie",
+              "start": "10:00",
+              "end": "12:00"
+            },
+            {
+              "day": "Vie",
+              "start": "10:00",
+              "end": "11:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sub-1785946067918",
+      "code": "a",
+      "name": "a",
+      "color": "#6366f1",
+      "credits": 8,
+      "hoursPerWeek": 5,
+      "groups": [
+        {
+          "id": "grp-1785946071577",
+          "groupCode": "a",
+          "classroom": "Por asignar",
+          "professor": "a",
+          "professorRating": 4.5,
+          "professorDifficulty": "Media",
+          "tags": [
+            "Registrado por alumno"
+          ],
+          "review": "a",
+          "schedule": [
+            {
+              "day": "Lun",
+              "start": "07:00",
+              "end": "09:00"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "selectedGroupIds": [
+    "grp-mat101-a",
+    "grp-prog102-a",
+    "grp-1785946071577"
+  ],
+  "theme": "dark",
+  "gridStyle": "glass",
+  "drafts": [
+    {
+      "id": "draft-1",
+      "name": "Opción A",
+      "selectedGroupIds": [
+        "grp-mat101-a",
+        "grp-prog102-a",
+        "grp-1785946071577"
+      ]
+    }
+  ],
+  "activeDraftId": "draft-1",
+  "settings": {
+    "activeDays": [
+      "Lun",
+      "Mar",
+      "Mie",
+      "Jue",
+      "Vie"
+    ],
+    "startHour": 7,
+    "endHour": 19
+  }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Organizador y Optimizador de Horario Escolar para Reinscripción. Detección de empalmes, evaluación de profesores y generador de combinaciones.">
+  <title>Organizador de Horario Escolar | Reinscripción</title>
+
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Estilos css -->
+  <link rel="stylesheet" href="css/styles.css?v=7">
+
+  <!-- Iconos locales -->
+  <script src="js/lucide.min.js?v=7"></script>
+  <!-- Exportador a Imagen HTML2Canvas -->
+  <script src="js/html2canvas.min.js?v=7"></script>
+</head>
+<body data-theme="dark">
+
+  <!-- Cabecera principal -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon"><i data-lucide="calendar-days"></i></div>
+      <span>HorarioEscolar<span style="color: var(--accent-primary);">.app</span></span>
+    </div>
+
+      <div class="header-actions">
+        <button class="btn btn-secondary btn-sm" id="theme-toggle"><i data-lucide="moon" style="width:16px;height:16px;"></i> Oscuro</button>
+        <button class="btn btn-outline btn-sm" id="btn-reset-data" title="Descartar cambios y recargar del servidor"><i data-lucide="refresh-ccw" style="width:16px;height:16px;"></i> Recargar</button>
+        <label class="btn btn-secondary btn-sm" style="cursor: pointer;" title="Cargar JSON local">
+          <i data-lucide="upload" style="width:16px;height:16px;"></i> Cargar JSON
+          <input type="file" id="input-import-json" accept=".json" style="display: none;">
+        </label>
+        <button class="btn btn-secondary btn-sm" id="btn-export-json" title="Descargar una copia de seguridad local"><i data-lucide="download" style="width:16px;height:16px;"></i> Guardar Copia</button>
+        <button class="btn btn-primary btn-sm" id="btn-save-server" title="Guardar cambios permanentemente"><i data-lucide="save" style="width:16px;height:16px;"></i> Guardar</button>
+      </div>
+  </header>
+
+  <!-- Contenedor principal -->
+  <div class="app-container">
+    
+    <!-- Barra lateral izquierda -->
+    <aside class="sidebar">
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item active" data-nav="schedule">
+            <button data-nav="schedule">
+              <i data-lucide="calendar" class="icon"></i>
+              <span>Horario Semanal</span>
+            </button>
+          </li>
+          <li class="nav-item" data-nav="professors">
+            <button data-nav="professors">
+              <i data-lucide="star" class="icon"></i>
+              <span>Ranking Profesores</span>
+            </button>
+          </li>
+          <li class="nav-item" data-nav="manage">
+            <button data-nav="manage">
+              <i data-lucide="settings" class="icon"></i>
+              <span>Gestor de Materias</span>
+            </button>
+          </li>
+          <li class="nav-item" data-nav="settings">
+            <button data-nav="settings">
+              <i data-lucide="sliders" class="icon"></i>
+              <span>Configuración</span>
+            </button>
+          </li>
+          <li class="nav-item" data-nav="about">
+            <button data-nav="about">
+              <i data-lucide="info" class="icon"></i>
+              <span>Acerca de</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Estadisticas -->
+      <div class="sidebar-summary">
+        <h4>Resumen de Carga</h4>
+        <div class="stat-row">
+          <span>Materias:</span>
+          <span class="stat-val" id="stat-subjects">0</span>
+        </div>
+        <div class="stat-row">
+          <span>Horas/semana:</span>
+          <span class="stat-val" id="stat-hours">0 hrs</span>
+        </div>
+        <div class="stat-row">
+          <span>Créditos totales:</span>
+          <span class="stat-val" id="stat-credits">0</span>
+        </div>
+        <div class="stat-row">
+          <span>Promedio Profes:</span>
+          <span class="stat-val" id="stat-avg-rating">0.0</span>
+        </div>
+        <div class="stat-row">
+          <span>Horas muertas:</span>
+          <span class="stat-val" id="stat-gaps" style="color: var(--warning);">0 hrs</span>
+        </div>
+        <div class="stat-row" style="margin-top: 0.5rem; padding-top: -2px; border-top: 1px solid var(--border-color);">
+          <span>Estado:</span>
+          <span id="stat-collisions" style="font-weight: 700; display:flex; align-items:center; gap:4px;"><i data-lucide="check-circle" style="width:16px;height:16px;"></i> Sin empalmes</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Contenedor de la vista central -->
+    <main class="main-content" id="view-container">
+      <!-- Aqui se inyecta el html con js -->
+    </main>
+
+    <!-- Barra lateral derecha (materias) -->
+    <aside class="right-sidebar" id="right-sidebar" style="display: none;">
+      <div class="right-sidebar-header">
+        <h3>Materias y Grupos</h3>
+        <button class="btn btn-outline btn-sm" onclick="toggleRightSidebar()">✕</button>
+      </div>
+      <div class="tree-menu" id="tree-menu-container">
+        <!-- aqui va la lista de materias -->
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Modal flotante genérico (Para formularios y vistas) -->
+  <div class="modal-backdrop" id="modal-backdrop" onclick="if(event.target===this) closeModal()">
+    <div class="modal" id="modal-content">
+      <!-- forms inyectados con js -->
+    </div>
+  </div>
+
+  <!-- Modal flotante genérico (Acerca de) -->
+  <div id="about-modal-overlay" class="modal-overlay hidden" onclick="if(event.target===this) closeAboutModal()">
+    <div id="about-modal-container" class="settings-modal">
+      <!-- forms inyectados con js -->
+    </div>
+  </div>
+
+  <!-- Contenedor oculto para impresión PDF si fuese necesario -->
+  <div id="print-area"></div>
+
+  <!-- Modal de Configuración -->
+  <div id="settings-modal-overlay" class="modal-overlay hidden" onclick="if(event.target===this) closeSettingsModal()">
+    <div id="settings-modal-container" class="settings-modal">
+      <!-- El contenido se inyectará desde app.js -->
+    </div>
+  </div>
+
+  <!-- Script principal -->
+  <script src="js/app.js?v=9"></script>
+</body>
+</html>
