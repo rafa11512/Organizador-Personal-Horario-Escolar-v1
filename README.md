@@ -1,78 +1,57 @@
 # Organizador de Horario Escolar
 
-Un organizador, visualizador y personalizador de horarios universitarios moderno y dinamico. Esta herramienta esta diseñada para ayudar a los estudiantes universitarios durante sus procesos de reinscripcion, permitiendoles estructurar, visualizar y elegir las mejores combinaciones de materias y profesores de forma intuitiva.
-
-## Que es y para que sirve?
-
-Armar un horario universitario puede ser un dolor de cabeza cuando tienes que equilibrar creditos, lidiar con empalmes de horas y buscar a los mejores profesores. **Organizador de Horario Escolar** resuelve este problema al ofrecerte un entorno visual interactivo. 
-
-Puedes registrar todas las materias, crear multiples grupos para cada una, y luego usar interruptores dinamicos para ir "encendiendo" o "apagando" grupos. La interfaz grafica te mostrara en tiempo real como va quedando tu semana, te advertira de colisiones de horarios, y te dara estadisticas como tus horas muertas, creditos y horas semanales.
+Una herramienta web moderna, rápida y dinámica para que los estudiantes planifiquen y estructuren sus horarios de forma visual, sin complicaciones.
 
 ## Funcionalidades Principales
 
-- **Visualizador de Horario Interactivo**: Rejilla semanal con diseno de bloques dinamicos. Si multiples clases se cruzan, los bloques se dividen automaticamente en columnas para que veas los empalmes claramente.
-- **Gestor de Materias y Grupos**: Agrega y edita facilmente tus materias (con creditos y horas) y asigna multiples grupos a cada una (con nombre del profesor y horas exactas).
-- **Ranking de Profesores**: Califica a los profesores de 1 a 5 estrellas para ayudarte a tomar decisiones sobre que clase tomar.
-- **Diseno UI/UX y Personalizacion**: Interfaz elegante con temas de colores completos (Cyberpunk, Dracula, etc), opciones de estilo de cuadricula (Glassmorphism, cuadros) y diseno veloz.
-- **Gestor de Borradores**: Guarda distintas versiones de tu horario como borradores para compararlos rapidamente.
-- **Exportacion a Imagen PNG HD**: Guarda tu horario generado como una imagen en alta resolucion perfecta para usar como fondo de pantalla de celular o compartirla.
-- **Exportacion a PDF (1 Hoja)**: Imprime o guarda en PDF tu horario o lista de materias con un clic.
-- **Persistencia de Datos Híbrida**: Tu configuración se guarda de manera segura en un archivo `initial_data.json`.
-  -  **Guardar**: Actualiza tu archivo en el servidor, o te pide descargarlo si estás sin conexión (`file:///`).
-  -  **Guardar Copia**: Descarga un respaldo independiente a tu PC en cualquier momento.
-  -  **Cargar JSON**: Sube cualquier respaldo, la app validará que la estructura sea correcta antes de leerlo.
-  -  **Recargar**: Descarta tus cambios no guardados y vuelve a leer la base de datos principal.
+- **Visualizador Interactivo**: Rejilla semanal con bloques dinámicos y manejo automático de cruces/empalmes de horarios.
+- **Gestor Completo**: Agrega y administra materias, múltiples grupos, profesores y créditos.
+- **Ranking de Profesores**: Califica a los docentes (1 a 5 estrellas) para tomar mejores decisiones.
+- **Gestor de Borradores**: Guarda, compara y cambia entre múltiples propuestas de horarios al instante.
+- **Exportación en Alta Calidad**: Descarga tu horario en PNG de alta resolución o en PDF.
+- **Modo Nocturno y Claro**: Interfaz con paletas de colores optimizadas para descansar la vista y reducir la fatiga.
 
-## Tecnologias Utilizadas
+## Tecnologías
 
-Este proyecto esta construido con tecnologias base, enfocandose en rendimiento, estetica premium y simplicidad.
+Este proyecto está construido 100% *Serverless* (sin requerir base de datos ni servidor activo), enfocado en el máximo rendimiento y simplicidad:
+- **Estructura**: HTML5
+- **Estilos**: Vanilla CSS (Variables, Flexbox, Grid)
+- **Lógica**: Vanilla JavaScript (ES6+)
+- **Persistencia**: LocalStorage (Tus datos viven y se guardan en tu propio navegador de manera segura).
 
-- **Estructura**: HTML5 semantico.
-- **Estilos**: Vanilla CSS (Variables nativas, Flexbox, CSS Grid).
-- **Logica**: Vanilla JavaScript (ES6+) y Node.js para guardado de archivos locales.
-- **Iconografia**: Lucide Icons.
+## Uso y Despliegue
 
-## Instalacion y Uso (Modo Servidor vs Modo Local)
+Al no requerir servidor, la aplicación funciona nativamente en cualquier lugar. Tienes dos opciones para usarla:
 
-La app está diseñada para funcionar de dos formas: con un servidor local (Experiencia Completa) o simplemente dándole doble clic al `index.html` (Modo Offline).
+**Opción 1: Uso Local Rápido**
+1. Descarga esta carpeta en tu computadora.
+2. Abre el archivo `index.html` con cualquier navegador web.
+3. Listo. Cualquier cambio que hagas se guardará en tu computadora.
 
-**Para la Experiencia Completa (Guardado Automático en Servidor):**
+> **Tip:** Usa los botones de **"Guardar Copia"** y **"Cargar Copia"** para pasar tu horario de tu computadora a tu celular de forma fácil.
 
-1. Clona o descarga el repositorio en tu computadora.
-2. Abre la terminal en la carpeta del proyecto.
-3. Asegurate de tener Node.js instalado.
-4. Ejecuta el comando: `node server.js`
-5. Abre en tu navegador la direccion: `http://localhost:3000`
-
-**Para el Modo Offline (Guardado Asistido Local):**
-
-1. Simplemente entra a la carpeta del proyecto y dale doble clic al archivo `index.html`.
-2. Se abrirá en tu navegador (la URL dirá `file:///...`).
-3. Podrás usar la app normalmente. Cuando presiones **Guardar**, la aplicación te pedirá descargar el archivo `initial_data.json`. Deberás guardarlo y reemplazar el archivo original que se encuentra dentro de la carpeta `/data`.
-
-
-<br><br><br>
+<br><br>
 
 ## Autor
 
 Desarrollado y diseñado por **Rafael Piedra S**.
-GitHub: https://github.com/rafa11512
+GitHub: [rafa11512](https://github.com/rafa11512)
 
 <br>
 
 <div align="center" style="font-family: monospace; white-space: pre; line-height: 1.2; letter-spacing: 0px;">
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⢤⣤⡀⠀⠀⠀⠀⠀⠀⢀⣤⠶⠦⡀⠀⠀⠀⠀⠀⠀⠀⠀<br />
-⠀⠀⠀⠀⠀⠀⠀⢀⠴⡟⠛⠂⣼⠟⠸⠿⣷⣿⣷⡒⢿⡃⠘⣛⠾⣤⠀⠀⠀⠀⠀⠀⠀<br />
-⠀⠀⠀⠀⠀⠀⡠⣥⢿⠟⣠⡾⠁⢘⣻⠿⠈⣯⣍⠻⡀⢿⣦⠹⡻⡌⢱⠀⠀⠀⠀⠀⠀<br />
-⠀⠀⠀⠀⠀⡰⢻⡇⡞⣼⡟⢡⡾⣻⠏⢠⣶⡙⠻⡛⢿⡸⣿⡄⠁⢻⡘⣦⡀⠀⠀⠀⠀<br />
-⠀⠀⠀⠀⢀⡇⣿⢸⢳⣿⢡⠏⡴⢋⣴⣿⣿⣿⣦⡈⢶⣧⢻⣧⠀⠘⡇⣀⢷⠀⠀⠀⠀<br />
-⢀⡤⣠⠤⠼⠡⠏⣾⢸⣿⠘⣪⣥⣉⣩⣿⣿⣿⣦⣶⣶⡝⢸⣿⠀⠇⢃⣟⣸⠤⠤⢤⡤<br />
-⠀⠙⢖⣬⣅⢠⢀⠐⢸⣏⠘⡗⠒⠚⣿⣿⣿⣿⡟⠒⠚⡏⡼⣿⠀⢺⠃⣀⣾⢠⠟⠋⠀<br />
-⠀⠀⠀⠁⡜⣿⣺⣧⡀⠻⡀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⢽⡟⠰⠬⠾⠗⠐⠍⠀⠀⠀<br />
-⠀⠀⠀⣸⠃⡇⢺⡆⣠⣄⠁⠈⣿⣿⣏⠿⡻⢏⣿⣿⣿⣿⢘⣡⡆⡄⣾⡌⠷⠅⠀⠀⠀<br />
-⠀⠀⠀⢁⢰⣇⢸⡃⣿⢉⣡⣤⣬⠙⠻⠿⠿⠿⠿⢛⣋⣀⡈⢩⣥⣅⠙⢓⣬⣇⡀⠀⠀<br />
-⠀⠀⠀⡌⢸⣿⢸⣇⢰⣿⣿⡏⣴⣦⣤⣤⣶⣶⡆⣿⣿⣿⣿⢸⣿⣿⠸⣿⡿⢖⢺⠀⠀<br />
-⠀⠀⢠⠁⣿⢿⡆⣿⠀⢻⣿⡇⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⡟⠸⣿⣿⠀⣿⣿⠯⡽⠀⠀<br />
-⠀⢠⢱⣧⣿⢸⣧⢻⡇⠈⣻⣷⢸⣿⣿⣿⣿⣷⡶⣼⣿⠏⢁⣄⣼⡏⢠⣿⡧⢵⠃⠀⠀<br />
-⠀⣸⣾⢻⢹⡈⣿⡘⣷⢸⣛⣛⠸⣿⣿⣿⣿⡿⠇⠟⡁⣠⣬⢉⡛⢁⣼⣿⡯⠭⠆⠀⠀
+⠀⠠⣤⡀⠀⠀⠀⠀⠀⠀⠀⠤⣤⠴⠦⡀⠀⠀⠀⠀
+⠀⠀⠀⠤⠴⡟⠛⠂⠼⠟⠸⠿⠷⠷⡒⢿⡃⠘⠛⠾⣤⠀⠀⠀
+⠀⠀⠀⡠⣥⢿⠟⣠⠾⠠⢘⠻⠿⠈⠯⣄⠻⡀⢿⣦⠹⠻⡌⢱⠀⠀
+⠀⠀⡰⢻⡇⡞⠼⠟⢡⠾⠻⠠⠠⢶⡙⠻⠛⢿⡸⣿⡄⠠⢻⡘⣦⡀⠀⠀
+⠀⠀⠤⡇⣿⢸⢳⣿⢡⠠⡴⢋⣴⣿⣿⣿⣦⡈⢶⣧⢻⣧⠀⠘⡇⣀⢷⠀⠀
+⠤⡤⣠⠤⠼⡡⠠⠾⢸⣿⠘⣪⣥⣉⣩⣿⣿⣿⣦⣶⣶⡠⢸⣿⠀⠇⢃⣟⣸⠤⠤⢤⡤
+⠀⠙⢖⣬⣅⢠⠤⠠⢸⣠⠘⡗⠒⠚⣿⣿⣿⣿⡟⠒⠚⡠⡼⣿⠀⢺⠃⣀⣾⢠⠟⠋⠀
+⠀⠀⠀⠠⡜⣾⣺⣧⡀⠻⡀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣠⢽⡟⠰⠬⠾⠗⠠⠠⠀⠀⠀
+⠀⠀⠀⣸⠃⡇⢺⡆⣠⣄⠠⠈⣿⣿⣠⠿⠻⢡⣿⣿⣿⣿⢘⡡⡆⡄⣾⡌⠷⠅⠀⠀⠀
+⠀⠀⠀⢠⢰⣇⢸⡃⣿⢉⡡⣤⣬⠙⠻⠿⠿⠿⠿⢛⣋⣀⡈⢩⣥⣅⠙⢓⣬⣇⡀⠀⠀
+⠀⠀⠀⡌⢸⣿⢸⣇⢰⣿⣿⡠⣴⣦⣤⣤⣶⣶⡆⣿⣿⣿⣿⢸⣿⣿⠸⣿⡿⢖⢺⠀⠀
+⠀⠀⢠⠠⣿⢿⡆⣿⠀⢻⡇⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⡟⠸⣿⣿⠀⣿⣿⠯⡽⠀⠀
+⠀⢠⢱⣧⣿⢸⣧⢻⡇⠈⢻⣷⢸⣿⣿⣿⣿⣿⣷⡶⠼⣿⠠⢡⣄⠼⡠⢠⣿⡧⢵⠃⠀⠀
+⠀⣸⣾⢻⢹⡈⣿⡘⣷⢸⠛⠛⠸⣿⣿⣿⣿⣿⠇⠟⡠⣠⣬⢉⠛⢡⠼⣿⡯⠭⠆⠀⠀
 </div>

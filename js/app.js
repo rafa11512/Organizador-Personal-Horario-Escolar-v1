@@ -81,8 +81,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Cargar datos de la aplicacion desde archivo inicial (JSON del servidor o disco)
 async function loadAppData() {
-  try {
-    const res = await fetch("data/initial_data.json?v=" + Date.now());
+    // 1. Intentar cargar desde el almacenamiento interno del navegador (Modo Vercel)
+    const storedDataStr = localStorage.getItem("horarioAppData");
+    if (storedDataStr) {
+      try {
+        const json = JSON.parse(storedDataStr);
+        state.subjects = json.subjects || [];
+        state.term = json.term || state.term;
+        state.settings = json.settings || state.settings;
+        const initialSelected = json.selectedGroupIds || getDefaultGroupSelection(state.subjects);
+        state.selectedGroupIds = initialSelected;
+        state.theme = json.theme || state.theme;
+        state.gridStyle = json.gridStyle || state.gridStyle;
+        state.drafts = json.drafts || [{ id: "draft-1", name: "Opción A", selectedGroupIds: initialSelected }];
+        state.activeDraftId = json.activeDraftId || "draft-1";
+        document.body.setAttribute("data-theme", state.theme);
+        return; // Éxito, evitamos petición de red
+      } catch (err) {
+        console.warn("No se pudo leer LocalStorage, cargando desde JSON.");
+      }
+    }
+
+    // 2. Si no hay datos en el navegador, descargar archivo base inicial
+    try {
+      const res = await fetch("data/initial_data.json?v=" + Date.now());
     const json = await res.json();
     state.subjects = json.subjects || [];
     state.term = json.term || state.term;
@@ -96,7 +118,8 @@ async function loadAppData() {
     state.activeDraftId = json.activeDraftId || "draft-1";
     
     document.body.setAttribute("data-theme", state.theme);
-  } catch (err) {
+      saveStateToLocalStorage();
+    } catch (err) {
     console.warn("No se pudo cargar initial_data.json por red (posible CORS en file://). Usando datos de prueba locales.");
     state.term = "Semestre de Prueba (Local)";
     state.subjects = [
@@ -150,39 +173,14 @@ function saveStateToLocalStorage() {
 }
 
 async function saveToServer() {
-  saveStateToLocalStorage(); // Asegurarnos de que el borrador esta sincronizado
+  saveStateToLocalStorage(); // Se asegura de que todo esté en la memoria del navegador
   
-  const stateData = {
-    term: state.term,
-    subjects: state.subjects,
-    selectedGroupIds: state.selectedGroupIds,
-    theme: state.theme,
-    gridStyle: state.gridStyle,
-    drafts: state.drafts,
-    activeDraftId: state.activeDraftId,
-    settings: state.settings
-  };
-
-  try {
-    const res = await fetch('/api/save', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(stateData)
-    });
-    
-    if (!res.ok) throw new Error("Servidor no disponible");
-    showCustomAlert("Guardado Exitoso", "¡Cambios guardados exitosamente en el servidor (initial_data.json)!", "check-circle");
-  } catch (err) {
-    // Modo Offline (file:///)
-    showCustomAlert("Modo Offline", "Estás ejecutando localmente sin servidor. Por seguridad, se descargará tu archivo initial_data.json. Por favor, guárdalo reemplazando el original en la carpeta 'data/'.", "download-cloud");
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(stateData, null, 2));
-    const link = document.createElement("a");
-    link.setAttribute("href", dataStr);
-    link.setAttribute("download", "initial_data.json");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
+  // Mostramos directamente el mensaje de éxito del modo Vercel / Local
+  showCustomAlert(
+    "Guardado en Navegador", 
+    "Tus datos se han guardado en la memoria de este navegador. Tu horario no se perderá al recargar la página.", 
+    "save"
+  );
 }
 
 // Detectores de eventos globales
@@ -200,14 +198,11 @@ function setupEventListeners() {
     btn.addEventListener("click", closeModal);
   });
 
-  // Cambiar tema de colores
-  const themesList = ["dark", "light", "cyberpunk", "dracula", "pastel", "nordic", "sepia"];
+  // Cambiar tema de colores desde la cabecera (solo oscuro/claro)
   const themeBtn = document.getElementById("theme-toggle");
   if (themeBtn) {
     themeBtn.addEventListener("click", () => {
-      const currentIdx = themesList.indexOf(state.theme);
-      const nextIdx = currentIdx === -1 ? 0 : (currentIdx + 1) % themesList.length;
-      state.theme = themesList[nextIdx];
+      state.theme = (state.theme === "light") ? "dark" : "light";
       document.body.setAttribute("data-theme", state.theme);
       saveStateToLocalStorage();
       renderApp();
@@ -1224,18 +1219,19 @@ function importJSONFile(event) {
 }
 
 async function resetToDefaultData() {
-  showCustomConfirm(
-    "Recargar del Servidor",
-    "¿Deseas descartar todos los cambios no guardados y recargar el horario original desde el servidor?",
-    "refresh-ccw",
-    "Recargar",
-    "btn-primary",
-    async () => {
-      await loadAppData();
-      renderApp();
-    }
-  );
-}
+    showCustomConfirm(
+      "Recargar Base de Datos",
+      "¿Deseas descartar todos los cambios de tu navegador y recargar el horario base original desde el archivo?",
+      "refresh-ccw",
+      "Recargar",
+      "btn-primary",
+      async () => {
+        localStorage.removeItem("horarioAppData");
+        await loadAppData();
+        renderApp();
+      }
+    );
+  }
 
 // MOTOR DE IMPRESION
 function triggerPrintSchedule(title, groups) {
@@ -1465,7 +1461,7 @@ function openEditGroupModal(subId, groupId) {
   });
 }
 
-// 5. CONFIGURACIÓN
+// 5. CONFIGURACIoN
 function openSettingsModal() {
   const overlay = document.getElementById("settings-modal-overlay");
   const container = document.getElementById("settings-modal-container");

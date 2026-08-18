@@ -3,21 +3,21 @@
    ========================================================================== */
 
 :root {
-  /* Color Palette - Minimal Dark Theme */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
-  --bg-hover: #334155;
-  --border-color: #334155;
-  --border-light: #475569;
+  /* Color Palette - Night Mode (Dark Gray Neutral) */
+  --bg-primary: #121212;     /* Gris muy oscuro, no negro puro */
+  --bg-secondary: #1e1e1e;   /* Gris oscuro para separar paneles */
+  --bg-card: #1e1e1e;        /* Gris oscuro para tarjetas */
+  --bg-hover: #2c2c2c;
+  --border-color: #2c2c2c;
+  --border-light: #3a3a3a;
   
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
+  --text-main: #e0e0e0;      /* Blanco suave / gris claro */
+  --text-muted: #a0a0a0;
+  --text-dim: #757575;
   
-  --accent-primary: #6366f1;
-  --accent-hover: #4f46e5;
-  --accent-light: rgba(99, 102, 241, 0.15);
+  --accent-primary: #3b82f6; /* Azul vibrante tipo zafiro para resaltar */
+  --accent-hover: #2563eb;
+  --accent-light: rgba(59, 130, 246, 0.15);
   
   --success: #10b981;
   --warning: #f59e0b;
@@ -40,22 +40,65 @@
   --sidebar-width: 280px;
 }
 
-/* Light Theme Variables */
+/* Light Theme Variables - Refined Day Mode (Cool Slate) */
 [data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
-  --bg-hover: #f1f5f9;
-  --border-color: #e2e8f0;
-  --border-light: #cbd5e1;
+  --bg-primary: #f1f5f9;     /* Gris Pizarra Claro (Fondo general, reduce brillo) */
+  --bg-secondary: #e2e8f0;   /* Gris Pizarra Medio para separar menús laterales y cabeceras */
+  --bg-card: #f8fafc;        /* Blanco-Grisáceo muy suave para tarjetas y modales, sin ser blanco puro */
+  --bg-hover: #cbd5e1;       /* Efecto hover más notorio */
+  --border-color: #cbd5e1;
+  --border-light: #94a3b8;
   
-  --text-main: #0f172a;
+  --text-main: #1e293b;      /* Pizarra oscuro para legibilidad perfecta */
   --text-muted: #475569;
-  --text-dim: #94a3b8;
+  --text-dim: #64748b;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+  --accent-primary: #0ea5e9; /* Azul Cielo vibrante */
+  --accent-hover: #0284c7;
+  --accent-light: rgba(14, 165, 233, 0.15);
+
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.1);
+  --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.15);
+}
+
+/* Modificaciones específicas al Modo Claro solicitadas */
+[data-theme="light"] .timetable-header {
+  background-color: #e0f2fe !important; /* Un poco de azul claro a los días */
+  border-bottom: 2px solid #bae6fd !important;
+  color: #0c4a6e !important;
+}
+
+[data-theme="light"] .sidebar,
+[data-theme="light"] .right-sidebar,
+[data-theme="light"] .app-header {
+  background-color: #cbd5e1 !important; /* Menús laterales notoriamente más grises */
+  border-color: #94a3b8 !important;
+}
+
+[data-theme="light"] .sidebar .nav-item button {
+  color: #1e293b !important; /* Azul marino/pizarra oscuro para que se lea perfecto sobre el gris */
+}
+
+[data-theme="light"] .sidebar .nav-item button:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] .subject-card {
+  background-color: #e2e8f0 !important; /* Tarjetas de materias más grises para quitar lo blanco */
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .modal-content {
+  background-color: #94a3b8 !important; /* Configuración y Acerca de MUCHO más grises */
+  border-color: #64748b !important;
+  color: #0f172a !important; /* Texto un poco más oscuro para contrastar el gris fuerte */
+}
+
+[data-theme="light"] .modal-content h2,
+[data-theme="light"] .modal-content h3,
+[data-theme="light"] .modal-content label {
+  color: #0f172a !important;
 }
 
 /* Cyberpunk Theme */
